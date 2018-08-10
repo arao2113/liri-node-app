@@ -27,6 +27,9 @@ else if (command === "my-tweets") {
 else if (command === "do-what-it-says") {
     doWhat();
 }
+else if (!command) {
+    console.log("Pleace enter a command\n movie-this 'movie title'\n spotify-this-song 'song title'\n my-tweets 'To see last 20 tweets'\n do-what-it-says 'To see what random txt does'");
+}
 
 
 // OMDB API Function
@@ -36,7 +39,7 @@ function movie(movieSearch) {
             console.log("Title: " + JSON.parse(body).Title);
             console.log("Released: " + JSON.parse(body).Year);
             console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-            console.log("Rotten Tomato: " + JSON.parse(body).Ratings[0].Source.Value);
+            console.log("Rotten Tomato: " + JSON.parse(body).Ratings[1].source);
             console.log("Country: " +JSON.parse(body).Country);
             console.log("Language: " + JSON.parse(body).Language);
             console.log("Plot: " + JSON.parse(body).Plot);
@@ -48,6 +51,9 @@ function movie(movieSearch) {
 // Spotify API Function
 function music(songSearch) {
     spotify.search({type: 'track', query: songSearch, limit: 1}, function(err, data) {
+        if(!search) {
+            search = "Ace of Base The Sign";
+        }
         if(err) {
             console.log('Error occured: ' + err);
         }
@@ -89,7 +95,6 @@ function doWhat() {
         var dataArr = data.split(",");
         
         music(dataArr[1]);
-
     });
 }
 
